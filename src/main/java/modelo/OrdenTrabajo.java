@@ -62,12 +62,12 @@ public class OrdenTrabajo {
             JOptionPane.showMessageDialog(null, "El campo Notas no puede estar vacío");
             ok = false;
         }
-        if (this.getGenera()== "Seleccione") {
-            JOptionPane.showMessageDialog(null, "El campo Genera Materno no puede estar vacío");
+        if (this.getGenera()== "Seleccione Quien Genera") {
+            JOptionPane.showMessageDialog(null, "El campo Genera no puede estar vacío");
             ok = false;
         }
-        if (this.getResponsable()== "Seleccione Cargo") {
-            JOptionPane.showMessageDialog(null, "El campo Genera no puede estar vacío");
+        if (this.getResponsable()== "Seleccione Responsable") {
+            JOptionPane.showMessageDialog(null, "El campo Responsable no puede estar vacío");
             ok = false;
         }
         return ok;

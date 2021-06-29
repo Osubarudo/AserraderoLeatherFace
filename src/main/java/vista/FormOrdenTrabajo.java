@@ -41,6 +41,7 @@ public class FormOrdenTrabajo extends javax.swing.JFrame {
         txtNota = new javax.swing.JTextField();
         cbxGeneradoOt = new javax.swing.JComboBox<>();
         cbxResponsableOt = new javax.swing.JComboBox<>();
+        btnLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,6 +81,8 @@ public class FormOrdenTrabajo extends javax.swing.JFrame {
             }
         });
 
+        btnLimpiar.setText("Limpiar");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -100,9 +103,11 @@ public class FormOrdenTrabajo extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnAñadirOrden)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(117, 117, 117)
                                 .addComponent(btnModificarOrden)
-                                .addGap(226, 226, 226)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLimpiar)
+                                .addGap(140, 140, 140)
                                 .addComponent(btnEliminarOrden))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -143,7 +148,8 @@ public class FormOrdenTrabajo extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAñadirOrden)
                     .addComponent(btnEliminarOrden)
-                    .addComponent(btnModificarOrden))
+                    .addComponent(btnModificarOrden)
+                    .addComponent(btnLimpiar))
                 .addGap(48, 48, 48))
         );
 
@@ -198,6 +204,7 @@ public class FormOrdenTrabajo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAñadirOrden;
     public javax.swing.JButton btnEliminarOrden;
+    public javax.swing.JButton btnLimpiar;
     public javax.swing.JButton btnModificarOrden;
     public javax.swing.JComboBox<String> cbxGeneradoOt;
     public javax.swing.JComboBox<String> cbxResponsableOt;

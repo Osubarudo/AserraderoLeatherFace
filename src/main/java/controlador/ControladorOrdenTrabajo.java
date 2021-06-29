@@ -38,6 +38,7 @@ public class ControladorOrdenTrabajo implements ActionListener, MouseListener {
         this.vista.btnModificarOrden.addActionListener(this);
         this.vista.btnEliminarOrden.addActionListener(this);
         this.vista.jtbOrdenTrabajo.addMouseListener(this);
+        this.vista.btnLimpiar.addActionListener(this);
     }
 
     public void inciarForm() throws SQLException {
@@ -101,16 +102,23 @@ public class ControladorOrdenTrabajo implements ActionListener, MouseListener {
         }
 
         if (vista.btnEliminarOrden == e.getSource()) {
-            model.setIdOt(Integer.parseInt(vista.txtIdOt.getText()));
-            if (dao.Eliminar(model)) {
-                JOptionPane.showMessageDialog(null, "Eliminado");
-                llenarTabla();
-                limpiar();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al Eliminar");
-                limpiar();
+
+            if (JOptionPane.showConfirmDialog(null, "¿Está seguro?, esta acción no se puede deshacer", "Eliminar Registro",
+                    JOptionPane.INFORMATION_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                model.setIdOt(Integer.parseInt(vista.txtIdOt.getText()));
+                if (dao.Eliminar(model)) {
+                    JOptionPane.showMessageDialog(null, "Eliminado");
+                    llenarTabla();
+                    limpiar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al Eliminar");
+                }
             }
 
+        }//*******
+
+        if (e.getSource() == vista.btnLimpiar) {
+            limpiar();
         }
 
     }
@@ -136,12 +144,12 @@ public class ControladorOrdenTrabajo implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent me) {
-        
+
         vista.txtIdOt.setText(String.valueOf(vista.jtbOrdenTrabajo.getValueAt(vista.jtbOrdenTrabajo.getSelectedRow(), 0)));
         vista.txtNota.setText(String.valueOf(vista.jtbOrdenTrabajo.getValueAt(vista.jtbOrdenTrabajo.getSelectedRow(), 1)));
         vista.cbxGeneradoOt.setSelectedItem(String.valueOf(vista.jtbOrdenTrabajo.getValueAt(vista.jtbOrdenTrabajo.getSelectedRow(), 2)));
         vista.cbxResponsableOt.setSelectedItem(String.valueOf(vista.jtbOrdenTrabajo.getValueAt(vista.jtbOrdenTrabajo.getSelectedRow(), 3)));
-        
+
 //        String idGen = String.valueOf(vista.jtbOrdenTrabajo.getValueAt(vista.jtbOrdenTrabajo.getSelectedRow(), 2));
 //        try {
 //            vista.cbxGeneradoOt.setSelectedItem(dao.enviarACombo(idGen));
@@ -155,7 +163,6 @@ public class ControladorOrdenTrabajo implements ActionListener, MouseListener {
 //        } catch (SQLException ex) {
 //            Logger.getLogger(ControladorOrdenTrabajo.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-        
     }
 
     @Override
