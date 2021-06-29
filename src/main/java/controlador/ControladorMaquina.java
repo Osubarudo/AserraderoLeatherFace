@@ -35,6 +35,7 @@ public class ControladorMaquina implements ActionListener, MouseListener {
         this.formaq.btnModificarMaquina.addActionListener(this);
         this.formaq.btnEliminarMaquina.addActionListener(this);
         this.formaq.jtbMaquina.addMouseListener(this);
+        this.formaq.btnLimpiar.addActionListener(this);
     }
 
     public void iniciarFormMaquina() {
@@ -47,82 +48,97 @@ public class ControladorMaquina implements ActionListener, MouseListener {
         formaq.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //dispose , permite cerrar solo la ventana seleccionada
         llenarTabla();
     }
-    
+
     String[] columnas = {"id", "Nombre", "ubicacion", "tipo"};
     ArrayList<Object[]> datos = new ArrayList<>();
     DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
-        //boton agregar
-        if (formaq.btnAgregarMaquina == e.getSource()) { 
+
+        if (formaq.btnAgregarMaquina == e.getSource()) {
 
             maq.setNombreMaquina(formaq.txtNombreMaq.getText()); // toma el usuario ingresa en el formulario y lo guarda en el atributo nombre maquina
             maq.setUbicacionMaquina(formaq.txtUbicacionMaq.getText());
             maq.setTipoMaquina(formaq.txtTipoMaq.getText());
 
-            if (daomaq.Agregar(maq)) { // se agraga el objaeto maquina "ma"
-                JOptionPane.showMessageDialog(null, "agregado exitoso");
+            if (maq.validarCamposVacios()) {
+                if (daomaq.Agregar(maq)) { // se agraga el objaeto maquina "ma"
+                    JOptionPane.showMessageDialog(null, "agregado exitoso");
+                    llenarTabla();
+                    limpiar();
 
-                llenarTabla();
-                limpiar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "agregado fallida");
+                }
 
             } else {
-                JOptionPane.showMessageDialog(null, "agregado fallida");
+                JOptionPane.showMessageDialog(null, "Complete los campos vacíos");
             }
-
         }
-        
-        
-         //  btn Modificar o actualizar
 
+        //  btn Modificar o actualizar
         if (formaq.btnModificarMaquina == e.getSource()) {
-
             maq.setIdMaquina(Integer.parseInt(formaq.txtIdmaq.getText()));
             maq.setNombreMaquina(formaq.txtNombreMaq.getText());
             maq.setUbicacionMaquina(formaq.txtUbicacionMaq.getText());
             maq.setTipoMaquina(formaq.txtTipoMaq.getText());
 
-            if (daomaq.Modificar(maq)) {
-                JOptionPane.showMessageDialog(null, "Registro Actualizado");
-                llenarTabla();
-                limpiar();
+            if (maq.validarCamposVacios()) {
+                if (daomaq.Modificar(maq)) {
+                    JOptionPane.showMessageDialog(null, "Registro Actualizado");
+                    llenarTabla();
+                    limpiar();
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al Eliminar");
+                    limpiar();
+                }
 
             } else {
-                JOptionPane.showMessageDialog(null, "Error al Eliminar");
-                limpiar();
+                JOptionPane.showMessageDialog(null, "Complete los campos vacíos");
             }
+
         }
-        
+
         // btn eliminar 
         if (e.getSource() == formaq.btnEliminarMaquina) {
 
-            maq.setIdMaquina(Integer.parseInt(formaq.txtIdmaq.getText()));
-            if (daomaq.Eliminar(maq)) {
-                JOptionPane.showMessageDialog(null, "Eliminado");
-                llenarTabla();
-                limpiar();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al Eliminar");
-                limpiar();
+            if (JOptionPane.showConfirmDialog(null, "¿Está seguro?, esta acción no se puede deshacer", "Eliminar Registro",
+                    JOptionPane.INFORMATION_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                maq.setIdMaquina(Integer.parseInt(formaq.txtIdmaq.getText()));
+                if (daomaq.Eliminar(maq)) {
+                    JOptionPane.showMessageDialog(null, "Eliminado");
+                    llenarTabla();
+                    limpiar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al Eliminar");
+                    limpiar();
+                }
             }
-
+            
+        }//fin del boton eliminar
+        
+         if (e.getSource() == formaq.btnLimpiar) {
+            limpiar();
         }
+        
+        
+        
 
-    }
+    }//fin del acción performed
 
-    public void llenarTabla() {  
+    public void llenarTabla() {
         modelo.setRowCount(0);
         datos = daomaq.consultar();
 
-        
         for (Object[] obj : datos) {
             modelo.addRow(obj);
         }
         formaq.jtbMaquina.setModel(modelo);
-    
+
     }
+
     public void limpiar() {
 
         formaq.txtNombreMaq.setText("");
@@ -131,10 +147,9 @@ public class ControladorMaquina implements ActionListener, MouseListener {
         formaq.txtIdmaq.setText("");
     }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
 
-@Override
-        public void mouseClicked(MouseEvent e) {
-            
         if (e.getSource() == formaq.jtbMaquina) {
             formaq.txtNombreMaq.setText(String.valueOf(formaq.jtbMaquina.getValueAt(formaq.jtbMaquina.getSelectedRow(), 1)));
             formaq.txtUbicacionMaq.setText(String.valueOf(formaq.jtbMaquina.getValueAt(formaq.jtbMaquina.getSelectedRow(), 2)));
@@ -145,23 +160,23 @@ public class ControladorMaquina implements ActionListener, MouseListener {
     }
 
     @Override
-        public void mousePressed(MouseEvent e) {
-       
+    public void mousePressed(MouseEvent e) {
+
     }
 
     @Override
-        public void mouseReleased(MouseEvent e) {
-        
+    public void mouseReleased(MouseEvent e) {
+
     }
 
     @Override
-        public void mouseEntered(MouseEvent e) {
-        
+    public void mouseEntered(MouseEvent e) {
+
     }
 
     @Override
-        public void mouseExited(MouseEvent e) {
-        
+    public void mouseExited(MouseEvent e) {
+
     }
 
 }

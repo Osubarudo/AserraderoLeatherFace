@@ -158,7 +158,7 @@ public class DAOTrabajador implements CRUD {
         con = (Connection) conectar.conectar();
         Statement st = con.createStatement();
         DefaultComboBoxModel listaModelo = new DefaultComboBoxModel();
-        listaModelo.addElement("Seleccione su Cargo");
+        listaModelo.addElement("Seleccione Cargo");
         ResultSet rs = st.executeQuery("select nombre from cargos");
         try {
             while (rs.next()) {

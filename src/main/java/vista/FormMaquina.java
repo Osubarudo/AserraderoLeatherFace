@@ -41,6 +41,7 @@ public class FormMaquina extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        btnLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +69,8 @@ public class FormMaquina extends javax.swing.JFrame {
 
         jLabel4.setText("Tipo de Maquina");
 
+        btnLimpiar.setText("Limpiar");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -79,9 +82,11 @@ public class FormMaquina extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnAgregarMaquina)
-                                .addGap(178, 178, 178)
+                                .addGap(84, 84, 84)
                                 .addComponent(btnModificarMaquina)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLimpiar)
+                                .addGap(89, 89, 89)
                                 .addComponent(btnEliminarMaquina))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(79, Short.MAX_VALUE))
@@ -94,9 +99,9 @@ public class FormMaquina extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtIdmaq, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtNombreMaq, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtTipoMaq, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+                                .addComponent(txtTipoMaq, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                                .addComponent(txtIdmaq, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtUbicacionMaq, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(54, 54, 54))))
         );
@@ -127,8 +132,9 @@ public class FormMaquina extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarMaquina)
                     .addComponent(btnEliminarMaquina)
-                    .addComponent(btnModificarMaquina))
-                .addContainerGap(39, Short.MAX_VALUE))
+                    .addComponent(btnModificarMaquina)
+                    .addComponent(btnLimpiar))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -174,6 +180,7 @@ public class FormMaquina extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAgregarMaquina;
     public javax.swing.JButton btnEliminarMaquina;
+    public javax.swing.JButton btnLimpiar;
     public javax.swing.JButton btnModificarMaquina;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

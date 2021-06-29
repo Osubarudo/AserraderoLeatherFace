@@ -37,6 +37,7 @@ public class ControladorTrabajador implements ActionListener, MouseListener, Key
         this.formtra.btnAgregarTrabajador.addActionListener(this); // agregar boton "agregar"
         this.formtra.btnModificarTrabajador.addActionListener(this);
         this.formtra.btnEliminarTrabajador.addActionListener(this);
+        this.formtra.btnLimpiar.addActionListener(this);
         formtra.jttbTrabajador.addMouseListener(this);
         formtra.txtnombreTrabajador.addKeyListener(this);
         formtra.txtApellidoPat.addKeyListener(this);
@@ -70,64 +71,75 @@ public class ControladorTrabajador implements ActionListener, MouseListener, Key
             tra.setPaterno(formtra.txtApellidoPat.getText());
             tra.setMaterno(formtra.txtApellidoMat.getText());
             tra.setCargos(formtra.cbxCargo.getSelectedItem().toString());
-            
-            if (tra.validarRut(formtra.txtRut.getText())) {
-                if (daot.Agregar(tra)) { // se agraga el objaeto maquina "ma"
-                    JOptionPane.showMessageDialog(null, "agregado exitoso");
-
-                    llenarTabla();
-                    limpiar();
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "agregado fallida");
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Rut Invalido");
-            }
 
             if (tra.validarCamposVacios()) {
+                if (tra.validarTodo()) {
+                    if (daot.Agregar(tra)) { // se agraga el objaeto maquina "ma"
+                        JOptionPane.showMessageDialog(null, "agregado exitoso");
+                        llenarTabla();
+                        limpiar();
 
+                    } else {
+                        JOptionPane.showMessageDialog(null, "agregado fallida");
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Complete campos con errores");
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "No debe dejar campos  vacios");
-
             }
-
         }
 
         // boton modificar
         if (formtra.btnModificarTrabajador == e.getSource()) {
-
             tra.setRut(formtra.txtRut.getText());
             tra.setNombres(formtra.txtnombreTrabajador.getText());
             tra.setPaterno(formtra.txtApellidoPat.getText());
             tra.setMaterno(formtra.txtApellidoMat.getText());
             tra.setCargos(formtra.cbxCargo.getSelectedItem().toString());
             tra.setIdTrabajador(Integer.parseInt(formtra.txtId.getText()));
-            if (daot.Modificar(tra)) {
-                JOptionPane.showMessageDialog(null, "Registro Actualizado");
-                llenarTabla();
-                limpiar();
+
+            if (tra.validarCamposVacios()) {
+                if (tra.validarTodo()) {
+                    if (daot.Modificar(tra)) {
+                        JOptionPane.showMessageDialog(null, "Registro Actualizado");
+                        llenarTabla();
+                        limpiar();
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al Modificar");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Complete campos con errores");
+                }
 
             } else {
-                JOptionPane.showMessageDialog(null, "Error al Modificar");
-                limpiar();
+                JOptionPane.showMessageDialog(null, "No debe dejar campos  vacios");
             }
         }
 
         //boton eliminar
         if (e.getSource() == formtra.btnEliminarTrabajador) {
-
-            tra.setIdTrabajador(Integer.parseInt(formtra.txtId.getText()));
-            if (daot.Eliminar(tra)) {
-                JOptionPane.showMessageDialog(null, "Eliminado");
-                llenarTabla();
-                limpiar();
+            if (JOptionPane.showConfirmDialog(null, "¿Está seguro?, esta acción no se puede deshacer", "Eliminar Registro",
+                    JOptionPane.INFORMATION_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                tra.setIdTrabajador(Integer.parseInt(formtra.txtId.getText()));
+                if (daot.Eliminar(tra)) {
+                    JOptionPane.showMessageDialog(null, "Eliminado");
+                    llenarTabla();
+                    limpiar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al Eliminar");
+                    limpiar();
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Error al Eliminar");
-                limpiar();
+                JOptionPane.showMessageDialog(null, "No Eliminado", "Se ha cancelado la eliminación", 1);
             }
+        }
 
+        if (e.getSource()
+                == formtra.btnLimpiar) {
+            limpiar();
         }
     }
 

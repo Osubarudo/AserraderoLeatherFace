@@ -37,6 +37,7 @@ public class ControladorTareas implements ActionListener, MouseListener, KeyList
         this.formtare.btnAñadirTarea.addActionListener(this); // agregar boton "agregar"
         this.formtare.btnModificarTarea.addActionListener(this);
         this.formtare.btnEliminatTarea.addActionListener(this);
+        this.formtare.btnLimpiar.addActionListener(this);
         formtare.jtbTarea.addMouseListener(this);
         formtare.txtDescripcion.addKeyListener(this);
         formtare.txtDuracion.addKeyListener(this);
@@ -73,22 +74,37 @@ public class ControladorTareas implements ActionListener, MouseListener, KeyList
         //boton agregar
         if (formtare.btnAñadirTarea == e.getSource()) { //detecta la pulsacion del boton agregar
 
-            tare.setDescripcion(formtare.txtDescripcion.getText()); // toma el usuario ingresa en el formulario y lo guarda en el atributo nombre maquina
-            tare.setDuracion(Integer.parseInt(formtare.txtDuracion.getText()));
+            tare.setDescripcion(formtare.txtDescripcion.getText());
+            try {
+                tare.setDuracion(Integer.parseInt(formtare.txtDuracion.getText()));
+            } catch (Exception ex) {
+                tare.setDuracion(0);
+            }
+
             tare.setPrioridad(formtare.cbxPrioridad.getSelectedItem().toString());
             tare.setMaquina(formtare.cbxMaquina.getSelectedItem().toString());
-            tare.setPeriodo(Integer.parseInt(formtare.txtPeriodo.getText()));
+            
+            try{
+                 tare.setPeriodo(Integer.parseInt(formtare.txtPeriodo.getText()));
+            }catch(Exception ex){
+                tare.setPeriodo(0);
+            }
+            
             tare.setTipoTarea(formtare.cbxTipoTarea.getSelectedItem().toString());
             tare.setOt(formtare.cbxOrdentTabajo.getSelectedItem().toString());
             tare.setTipoMantencion(formtare.cbxTipoMantencion.getSelectedItem().toString());
 
             if (tare.validarCamposVacios()) {
-                if (daotare.Agregar(tare)) {
-                    JOptionPane.showMessageDialog(null, "Agregado correctamente");
-                    llenarTabla();
-                    limpiar();
+                if (tare.validarTodo()) {
+                    if (daotare.Agregar(tare)) {
+                        JOptionPane.showMessageDialog(null, "Agregado correctamente");
+                        llenarTabla();
+                        limpiar();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al Agregar");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Error al Agregar");
+                    JOptionPane.showMessageDialog(null, "Complete campos con errores");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No debe dejar campos  vacios");
@@ -99,38 +115,64 @@ public class ControladorTareas implements ActionListener, MouseListener, KeyList
         if (formtare.btnModificarTarea == e.getSource()) {
 
             tare.setDescripcion(formtare.txtDescripcion.getText());
-            tare.setDuracion(Integer.parseInt(formtare.txtDuracion.getText()));
+            //tare.setDuracion(Integer.parseInt(formtare.txtDuracion.getText()));
+             try {
+                tare.setDuracion(Integer.parseInt(formtare.txtDuracion.getText()));
+            } catch (Exception ex) {
+                tare.setDuracion(0);
+            }
             tare.setPrioridad(formtare.cbxPrioridad.getSelectedItem().toString());
             tare.setMaquina(formtare.cbxMaquina.getSelectedItem().toString());
-            tare.setPeriodo(Integer.parseInt(formtare.txtPeriodo.getText()));
+            //tare.setPeriodo(Integer.parseInt(formtare.txtPeriodo.getText()));
+              try{
+                 tare.setPeriodo(Integer.parseInt(formtare.txtPeriodo.getText()));
+            }catch(Exception ex){
+                tare.setPeriodo(0);
+            }
             tare.setTipoTarea(formtare.cbxTipoTarea.getSelectedItem().toString());
             tare.setOt(formtare.cbxOrdentTabajo.getSelectedItem().toString());
             tare.setTipoMantencion(formtare.cbxTipoMantencion.getSelectedItem().toString());
             tare.setIdTarea(Integer.parseInt(formtare.txtId.getText()));
 
-            if (daotare.Modificar(tare)) {
-                JOptionPane.showMessageDialog(null, "Registro Actualizado");
-                llenarTabla();
-                limpiar();
-
+            if (tare.validarCamposVacios()) {
+                if (tare.validarTodo()) {
+                    if (daotare.Modificar(tare)) {
+                        JOptionPane.showMessageDialog(null, "Registro Actualizado");
+                        llenarTabla();
+                        limpiar();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al Modificar");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Complete campos con errores");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Error al Modificar");
-                //limpiar();
+                JOptionPane.showMessageDialog(null, "No debe dejar campos  vacios");
             }
+
         }
         //boton eliminar
         if (e.getSource() == formtare.btnEliminatTarea) {
 
-            tare.setIdTarea(Integer.parseInt(formtare.txtId.getText()));
-            if (daotare.Eliminar(tare)) {
-                JOptionPane.showMessageDialog(null, "Eliminado");
-                llenarTabla();
-                limpiar();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al Eliminar");
-                limpiar();
+            if (JOptionPane.showConfirmDialog(null, "¿Está seguro?, esta acción no se puede deshacer", "Eliminar Registro",
+                    JOptionPane.INFORMATION_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+                tare.setIdTarea(Integer.parseInt(formtare.txtId.getText()));
+                if (daotare.Eliminar(tare)) {
+                    JOptionPane.showMessageDialog(null, "Eliminado");
+                    llenarTabla();
+                    limpiar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al Eliminar");
+                    limpiar();
+                }
+
             }
 
+        }//fin btnEliminar
+
+        if (e.getSource() == formtare.btnLimpiar) {
+            limpiar();
         }
     }
 
@@ -202,27 +244,27 @@ public class ControladorTareas implements ActionListener, MouseListener, KeyList
         }
 
         if (e.getSource() == formtare.txtDuracion) {
-//            char c = e.getKeyChar();
-//            if (e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_ENTER) {//Al presionar enter pasa el foco al siguiente campo
-//                //txtPeso.requestFocus();//hay que definir a que componente pasa el foco
-//            } else if (e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_BACKSPACE || e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_DELETE) {//lo utilizo para que no haga el sonido del beep al borrar
-//                //
-//            } else if (c < '0' || c > '9') {
-//                formtare.getToolkit().beep();
-//                e.consume();
-//            }
+            char c = e.getKeyChar();
+            if (e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_ENTER) {//Al presionar enter pasa el foco al siguiente campo
+                //txtPeso.requestFocus();//hay que definir a que componente pasa el foco
+            } else if (e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_BACKSPACE || e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_DELETE) {//lo utilizo para que no haga el sonido del beep al borrar
+                //
+            } else if (c < '0' || c > '9') {
+                formtare.getToolkit().beep();
+                e.consume();
+            }
 
         }
         if (e.getSource() == formtare.txtPeriodo) {
-//            char c = e.getKeyChar();
-//            if (e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_ENTER) {//Al presionar enter pasa el foco al siguiente campo
-//                //txtPeso.requestFocus();//hay que definir a que componente pasa el foco
-//            } else if (e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_BACKSPACE || e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_DELETE) {//lo utilizo para que no haga el sonido del beep al borrar
-//                //
-//            } else if (c < '0' || c > '9') {
-//                formtare.getToolkit().beep();
-//                e.consume();
-//            }
+            char c = e.getKeyChar();
+            if (e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_ENTER) {//Al presionar enter pasa el foco al siguiente campo
+                //txtPeso.requestFocus();//hay que definir a que componente pasa el foco
+            } else if (e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_BACKSPACE || e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_DELETE) {//lo utilizo para que no haga el sonido del beep al borrar
+                //
+            } else if (c < '0' || c > '9') {
+                formtare.getToolkit().beep();
+                e.consume();
+            }
         }
     }
 

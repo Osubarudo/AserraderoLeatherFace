@@ -106,25 +106,25 @@ public class Tarea {
             ok = false;
             JOptionPane.showMessageDialog(null, "El campo Descripcion no puede estar vacío");
         }
-        if (this.getPrioridad().isEmpty()) {
+        if (this.getPrioridad()=="Seleccione Prioridad") {
             JOptionPane.showMessageDialog(null, "El campo Prioridad no puede estar vacío");
             ok = false;
         }
-        if (this.getMaquina().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "El campo Apellido Paterno no puede estar vacío");
+        if (this.getMaquina()=="Seleccione Maquina") {
+            JOptionPane.showMessageDialog(null, "El campo Máquina no puede estar vacío");
             ok = false;
         }
-        if (this.getTipoTarea().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "El campo Apellido Materno no puede estar vacío");
+        if (this.getTipoTarea()=="Seleccione Tipo Tarea") {
+            JOptionPane.showMessageDialog(null, "El campo Tipo Tarea no puede estar vacío");
             ok = false;
         }
-        if (this.getOt() == "Seleccione Cargo") {
-            JOptionPane.showMessageDialog(null, "El campo Cargo no puede estar vacío");
+        if (this.getOt() == "Seleccione OT") {
+            JOptionPane.showMessageDialog(null, "El campo OT no puede estar vacío");
             ok = false;
 
         }
-        if (this.getTipoMantencion() == "Seleccione Cargo") {
-            JOptionPane.showMessageDialog(null, "El campo Cargo no puede estar vacío");
+        if (this.getTipoMantencion() == "Seleccione Tipo de Mantencion") {
+            JOptionPane.showMessageDialog(null, "El campo Tipo de mantención no puede estar vacío");
             ok = false;
             return ok;
         }

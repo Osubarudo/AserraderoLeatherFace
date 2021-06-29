@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author acer
@@ -50,6 +52,25 @@ public class Maquina {
     public void setTipoMaquina(String tipoMaquina) {
         this.tipoMaquina = tipoMaquina;
     }
+    
+    public boolean validarCamposVacios() {
+        boolean ok = true;
+        if (this.getNombreMaquina().isEmpty()) {
+            ok = false;
+            JOptionPane.showMessageDialog(null, "El campo Nombre no puede estar vacío");
+        }
+        if (this.getUbicacionMaquina().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo Ubicación no puede estar vacío");
+            ok = false;
+        }
+        if (this.getTipoMaquina().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo Tipo Máquina no puede estar vacío");
+            ok = false;
+        }
+        return ok;
+    }
+    
+    
    
     
     
