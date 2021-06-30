@@ -79,52 +79,58 @@ public class ControladorMaquina implements ActionListener, MouseListener {
 
         //  btn Modificar o actualizar
         if (formaq.btnModificarMaquina == e.getSource()) {
-            maq.setIdMaquina(Integer.parseInt(formaq.txtIdmaq.getText()));
-            maq.setNombreMaquina(formaq.txtNombreMaq.getText());
-            maq.setUbicacionMaquina(formaq.txtUbicacionMaq.getText());
-            maq.setTipoMaquina(formaq.txtTipoMaq.getText());
 
-            if (maq.validarCamposVacios()) {
-                if (daomaq.Modificar(maq)) {
-                    JOptionPane.showMessageDialog(null, "Registro Actualizado");
-                    llenarTabla();
-                    limpiar();
+            if (!formaq.txtIdmaq.getText().isEmpty()) {
+                maq.setIdMaquina(Integer.parseInt(formaq.txtIdmaq.getText()));
+                maq.setNombreMaquina(formaq.txtNombreMaq.getText());
+                maq.setUbicacionMaquina(formaq.txtUbicacionMaq.getText());
+                maq.setTipoMaquina(formaq.txtTipoMaq.getText());
+
+                if (maq.validarCamposVacios()) {
+                    if (daomaq.Modificar(maq)) {
+                        JOptionPane.showMessageDialog(null, "Registro Actualizado");
+                        llenarTabla();
+                        limpiar();
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al Eliminar");
+                        limpiar();
+                    }
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Error al Eliminar");
-                    limpiar();
+                    JOptionPane.showMessageDialog(null, "Complete los campos vacíos");
                 }
 
             } else {
-                JOptionPane.showMessageDialog(null, "Complete los campos vacíos");
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una fila antes de continuar");
             }
 
         }
 
         // btn eliminar 
         if (e.getSource() == formaq.btnEliminarMaquina) {
-
-            if (JOptionPane.showConfirmDialog(null, "¿Está seguro?, esta acción no se puede deshacer", "Eliminar Registro",
-                    JOptionPane.INFORMATION_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                maq.setIdMaquina(Integer.parseInt(formaq.txtIdmaq.getText()));
-                if (daomaq.Eliminar(maq)) {
-                    JOptionPane.showMessageDialog(null, "Eliminado");
-                    llenarTabla();
-                    limpiar();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al Eliminar");
-                    limpiar();
+            if (!formaq.txtIdmaq.getText().isEmpty()) {
+                if (JOptionPane.showConfirmDialog(null, "¿Está seguro?, esta acción no se puede deshacer", "Eliminar Registro",
+                        JOptionPane.INFORMATION_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    maq.setIdMaquina(Integer.parseInt(formaq.txtIdmaq.getText()));
+                    if (daomaq.Eliminar(maq)) {
+                        JOptionPane.showMessageDialog(null, "Eliminado");
+                        llenarTabla();
+                        limpiar();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al Eliminar");
+                        limpiar();
+                    }
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una fila antes de continuar");
             }
-            
+
         }//fin del boton eliminar
-        
-         if (e.getSource() == formaq.btnLimpiar) {
+
+        if (e.getSource() == formaq.btnLimpiar) {
             limpiar();
         }
-        
-        
-        
 
     }//fin del acción performed
 

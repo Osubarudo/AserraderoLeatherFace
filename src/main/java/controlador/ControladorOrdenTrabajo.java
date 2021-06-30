@@ -80,39 +80,48 @@ public class ControladorOrdenTrabajo implements ActionListener, MouseListener {
         }
 
         if (vista.btnModificarOrden == e.getSource()) {
-            model.setIdOt(Integer.parseInt(vista.txtIdOt.getText()));
-            model.setNotas(vista.txtNota.getText());
-            model.setGenera(vista.cbxGeneradoOt.getSelectedItem().toString());
-            model.setResponsable(vista.cbxResponsableOt.getSelectedItem().toString());
 
-            if (model.validarCamposVacios()) {
-                if (dao.Modificar(model)) {
-                    JOptionPane.showMessageDialog(null, "Registro Actualizado");
-                    llenarTabla();
-                    limpiar();
+            if (!vista.txtIdOt.getText().isEmpty()) {
+                model.setIdOt(Integer.parseInt(vista.txtIdOt.getText()));
+                model.setNotas(vista.txtNota.getText());
+                model.setGenera(vista.cbxGeneradoOt.getSelectedItem().toString());
+                model.setResponsable(vista.cbxResponsableOt.getSelectedItem().toString());
+
+                if (model.validarCamposVacios()) {
+                    if (dao.Modificar(model)) {
+                        JOptionPane.showMessageDialog(null, "Registro Actualizado");
+                        llenarTabla();
+                        limpiar();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al Modificar");
+                    }
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Error al Modificar");
+                    JOptionPane.showMessageDialog(null, "Rellene campos vacios");
                 }
 
             } else {
-                JOptionPane.showMessageDialog(null, "Rellene campos vacios");
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una fila antes de continuar");
             }
 
         }
 
         if (vista.btnEliminarOrden == e.getSource()) {
 
-            if (JOptionPane.showConfirmDialog(null, "¿Está seguro?, esta acción no se puede deshacer", "Eliminar Registro",
-                    JOptionPane.INFORMATION_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                model.setIdOt(Integer.parseInt(vista.txtIdOt.getText()));
-                if (dao.Eliminar(model)) {
-                    JOptionPane.showMessageDialog(null, "Eliminado");
-                    llenarTabla();
-                    limpiar();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al Eliminar");
+            if (!vista.txtIdOt.getText().isEmpty()) {
+                if (JOptionPane.showConfirmDialog(null, "¿Está seguro?, esta acción no se puede deshacer", "Eliminar Registro",
+                        JOptionPane.INFORMATION_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    model.setIdOt(Integer.parseInt(vista.txtIdOt.getText()));
+                    if (dao.Eliminar(model)) {
+                        JOptionPane.showMessageDialog(null, "Eliminado");
+                        llenarTabla();
+                        limpiar();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al Eliminar");
+                    }
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una fila antes de continuar");
             }
 
         }//*******

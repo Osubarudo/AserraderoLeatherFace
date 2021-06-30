@@ -93,48 +93,62 @@ public class ControladorTrabajador implements ActionListener, MouseListener, Key
 
         // boton modificar
         if (formtra.btnModificarTrabajador == e.getSource()) {
-            tra.setRut(formtra.txtRut.getText());
-            tra.setNombres(formtra.txtnombreTrabajador.getText());
-            tra.setPaterno(formtra.txtApellidoPat.getText());
-            tra.setMaterno(formtra.txtApellidoMat.getText());
-            tra.setCargos(formtra.cbxCargo.getSelectedItem().toString());
-            tra.setIdTrabajador(Integer.parseInt(formtra.txtId.getText()));
 
-            if (tra.validarCamposVacios()) {
-                if (tra.validarTodo()) {
-                    if (daot.Modificar(tra)) {
-                        JOptionPane.showMessageDialog(null, "Registro Actualizado");
-                        llenarTabla();
-                        limpiar();
+            if (!formtra.txtId.getText().isEmpty()) {
+                tra.setRut(formtra.txtRut.getText());
+                tra.setNombres(formtra.txtnombreTrabajador.getText());
+                tra.setPaterno(formtra.txtApellidoPat.getText());
+                tra.setMaterno(formtra.txtApellidoMat.getText());
+                tra.setCargos(formtra.cbxCargo.getSelectedItem().toString());
+                tra.setIdTrabajador(Integer.parseInt(formtra.txtId.getText()));
 
+                if (tra.validarCamposVacios()) {
+                    if (tra.validarTodo()) {
+                        if (daot.Modificar(tra)) {
+                            JOptionPane.showMessageDialog(null, "Registro Actualizado");
+                            llenarTabla();
+                            limpiar();
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error al Modificar");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Error al Modificar");
+                        JOptionPane.showMessageDialog(null, "Complete campos con errores");
                     }
+
                 } else {
-                    JOptionPane.showMessageDialog(null, "Complete campos con errores");
+                    JOptionPane.showMessageDialog(null, "No debe dejar campos  vacios");
                 }
 
             } else {
-                JOptionPane.showMessageDialog(null, "No debe dejar campos  vacios");
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una fila antes de continuar");
             }
+
         }
 
         //boton eliminar
         if (e.getSource() == formtra.btnEliminarTrabajador) {
-            if (JOptionPane.showConfirmDialog(null, "¿Está seguro?, esta acción no se puede deshacer", "Eliminar Registro",
-                    JOptionPane.INFORMATION_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                tra.setIdTrabajador(Integer.parseInt(formtra.txtId.getText()));
-                if (daot.Eliminar(tra)) {
-                    JOptionPane.showMessageDialog(null, "Eliminado");
-                    llenarTabla();
-                    limpiar();
+
+            if (!formtra.txtId.getText().isEmpty()) {
+                if (JOptionPane.showConfirmDialog(null, "¿Está seguro?, esta acción no se puede deshacer", "Eliminar Registro",
+                        JOptionPane.INFORMATION_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    tra.setIdTrabajador(Integer.parseInt(formtra.txtId.getText()));
+                    if (daot.Eliminar(tra)) {
+                        JOptionPane.showMessageDialog(null, "Eliminado");
+                        llenarTabla();
+                        limpiar();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al Eliminar");
+                        limpiar();
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Error al Eliminar");
-                    limpiar();
+                    JOptionPane.showMessageDialog(null, "No Eliminado", "Se ha cancelado la eliminación", 1);
                 }
+
             } else {
-                JOptionPane.showMessageDialog(null, "No Eliminado", "Se ha cancelado la eliminación", 1);
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una fila antes de continuar");
             }
+
         }
 
         if (e.getSource()

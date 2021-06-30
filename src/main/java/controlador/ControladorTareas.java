@@ -83,13 +83,13 @@ public class ControladorTareas implements ActionListener, MouseListener, KeyList
 
             tare.setPrioridad(formtare.cbxPrioridad.getSelectedItem().toString());
             tare.setMaquina(formtare.cbxMaquina.getSelectedItem().toString());
-            
-            try{
-                 tare.setPeriodo(Integer.parseInt(formtare.txtPeriodo.getText()));
-            }catch(Exception ex){
+
+            try {
+                tare.setPeriodo(Integer.parseInt(formtare.txtPeriodo.getText()));
+            } catch (Exception ex) {
                 tare.setPeriodo(0);
             }
-            
+
             tare.setTipoTarea(formtare.cbxTipoTarea.getSelectedItem().toString());
             tare.setOt(formtare.cbxOrdentTabajo.getSelectedItem().toString());
             tare.setTipoMantencion(formtare.cbxTipoMantencion.getSelectedItem().toString());
@@ -114,59 +114,69 @@ public class ControladorTareas implements ActionListener, MouseListener, KeyList
         // boton modificar
         if (formtare.btnModificarTarea == e.getSource()) {
 
-            tare.setDescripcion(formtare.txtDescripcion.getText());
-            //tare.setDuracion(Integer.parseInt(formtare.txtDuracion.getText()));
-             try {
-                tare.setDuracion(Integer.parseInt(formtare.txtDuracion.getText()));
-            } catch (Exception ex) {
-                tare.setDuracion(0);
-            }
-            tare.setPrioridad(formtare.cbxPrioridad.getSelectedItem().toString());
-            tare.setMaquina(formtare.cbxMaquina.getSelectedItem().toString());
-            //tare.setPeriodo(Integer.parseInt(formtare.txtPeriodo.getText()));
-              try{
-                 tare.setPeriodo(Integer.parseInt(formtare.txtPeriodo.getText()));
-            }catch(Exception ex){
-                tare.setPeriodo(0);
-            }
-            tare.setTipoTarea(formtare.cbxTipoTarea.getSelectedItem().toString());
-            tare.setOt(formtare.cbxOrdentTabajo.getSelectedItem().toString());
-            tare.setTipoMantencion(formtare.cbxTipoMantencion.getSelectedItem().toString());
-            tare.setIdTarea(Integer.parseInt(formtare.txtId.getText()));
+            if (!formtare.txtId.getText().isEmpty()) {
+                tare.setDescripcion(formtare.txtDescripcion.getText());
+                //tare.setDuracion(Integer.parseInt(formtare.txtDuracion.getText()));
+                try {
+                    tare.setDuracion(Integer.parseInt(formtare.txtDuracion.getText()));
+                } catch (Exception ex) {
+                    tare.setDuracion(0);
+                }
+                tare.setPrioridad(formtare.cbxPrioridad.getSelectedItem().toString());
+                tare.setMaquina(formtare.cbxMaquina.getSelectedItem().toString());
+                //tare.setPeriodo(Integer.parseInt(formtare.txtPeriodo.getText()));
+                try {
+                    tare.setPeriodo(Integer.parseInt(formtare.txtPeriodo.getText()));
+                } catch (Exception ex) {
+                    tare.setPeriodo(0);
+                }
+                tare.setTipoTarea(formtare.cbxTipoTarea.getSelectedItem().toString());
+                tare.setOt(formtare.cbxOrdentTabajo.getSelectedItem().toString());
+                tare.setTipoMantencion(formtare.cbxTipoMantencion.getSelectedItem().toString());
+                tare.setIdTarea(Integer.parseInt(formtare.txtId.getText()));
 
-            if (tare.validarCamposVacios()) {
-                if (tare.validarTodo()) {
-                    if (daotare.Modificar(tare)) {
-                        JOptionPane.showMessageDialog(null, "Registro Actualizado");
-                        llenarTabla();
-                        limpiar();
+                if (tare.validarCamposVacios()) {
+                    if (tare.validarTodo()) {
+                        if (daotare.Modificar(tare)) {
+                            JOptionPane.showMessageDialog(null, "Registro Actualizado");
+                            llenarTabla();
+                            limpiar();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error al Modificar");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Error al Modificar");
+                        JOptionPane.showMessageDialog(null, "Complete campos con errores");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Complete campos con errores");
+                    JOptionPane.showMessageDialog(null, "No debe dejar campos  vacios");
                 }
+
             } else {
-                JOptionPane.showMessageDialog(null, "No debe dejar campos  vacios");
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una fila antes de continuar");
             }
 
         }
         //boton eliminar
         if (e.getSource() == formtare.btnEliminatTarea) {
 
-            if (JOptionPane.showConfirmDialog(null, "¿Está seguro?, esta acción no se puede deshacer", "Eliminar Registro",
-                    JOptionPane.INFORMATION_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (!formtare.txtId.getText().isEmpty()) {
+                if (JOptionPane.showConfirmDialog(null, "¿Está seguro?, esta acción no se puede deshacer", "Eliminar Registro",
+                        JOptionPane.INFORMATION_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-                tare.setIdTarea(Integer.parseInt(formtare.txtId.getText()));
-                if (daotare.Eliminar(tare)) {
-                    JOptionPane.showMessageDialog(null, "Eliminado");
-                    llenarTabla();
-                    limpiar();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al Eliminar");
-                    limpiar();
+                    tare.setIdTarea(Integer.parseInt(formtare.txtId.getText()));
+                    if (daotare.Eliminar(tare)) {
+                        JOptionPane.showMessageDialog(null, "Eliminado");
+                        llenarTabla();
+                        limpiar();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al Eliminar");
+                        limpiar();
+                    }
+
                 }
 
+            } else {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una fila antes de continuar");
             }
 
         }//fin btnEliminar
