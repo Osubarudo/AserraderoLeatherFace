@@ -142,11 +142,11 @@ public class Tarea {
             JOptionPane.showMessageDialog(null, "Duracion No Válida", "Atención", 2);
         }
 
-        if (validarPeriodo(this.getPeriodo())) {
-        } else {
-            lista.add(false);
-            JOptionPane.showMessageDialog(null, "Periodo No Válido", "Atención", 2);
-        }
+//        if (validarPeriodo(this.getPeriodo())) {
+//        } else {
+//            lista.add(false);
+//            JOptionPane.showMessageDialog(null, "Periodo No Válido", "Atención", 2);
+//        }
 
 
         int contador = 0;
@@ -171,14 +171,14 @@ public class Tarea {
         return ok;
         
     }
-    
-    public boolean validarPeriodo(int Periodo) {
-        boolean ok = true;
-        if (periodo < 1 ) {
-            ok = false;
-        }
-        return ok;
-    }
+// Se inactivó este metodo por condiciones del periodo    
+//    public boolean validarPeriodo(int Periodo) {
+//        boolean ok = true;
+//        if (periodo < 1 ) {
+//            ok = false;
+//        }
+//        return ok;
+//    }
     
   
     

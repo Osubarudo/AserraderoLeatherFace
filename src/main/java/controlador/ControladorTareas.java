@@ -13,6 +13,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -38,6 +40,7 @@ public class ControladorTareas implements ActionListener, MouseListener, KeyList
         this.formtare.btnModificarTarea.addActionListener(this);
         this.formtare.btnEliminatTarea.addActionListener(this);
         this.formtare.btnLimpiar.addActionListener(this);
+        this.formtare.btnRefrescar.addActionListener(this);
         formtare.jtbTarea.addMouseListener(this);
         formtare.txtDescripcion.addKeyListener(this);
         formtare.txtDuracion.addKeyListener(this);
@@ -185,6 +188,15 @@ public class ControladorTareas implements ActionListener, MouseListener, KeyList
         if (e.getSource() == formtare.btnLimpiar) {
             limpiar();
         }
+
+        if (e.getSource() == formtare.btnRefrescar) {
+            try {
+                formtare.cbxOrdentTabajo.setModel(daotare.obtenerOT());
+            } catch (SQLException ex) {
+                Logger.getLogger(ControladorTareas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
     public void llenarTabla() {  //carga los datos de la bace de datos a la tabla
