@@ -55,6 +55,7 @@ public class ControladorTrabajador implements ActionListener, MouseListener, Key
         formtra.cbxCargo.setModel(daot.obtenerCargo());
         formtra.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //dispose , permite cerrar solo la ventana seleccionada
         llenarTabla();
+        desactivarModElim();
     }
 
     String[] columnas = {"id_trabajador", "rut", "nombres", "apellido_paterno", "apellido_materno", "cargo_fk"};
@@ -177,6 +178,7 @@ public class ControladorTrabajador implements ActionListener, MouseListener, Key
         formtra.txtApellidoPat.setText("");
         formtra.txtApellidoMat.setText("");
         formtra.cbxCargo.setSelectedIndex(0);
+        desactivarModElim();
 
     }
 
@@ -189,6 +191,7 @@ public class ControladorTrabajador implements ActionListener, MouseListener, Key
             formtra.txtApellidoPat.setText(String.valueOf(formtra.jttbTrabajador.getValueAt(formtra.jttbTrabajador.getSelectedRow(), 3)));
             formtra.txtApellidoMat.setText(String.valueOf(formtra.jttbTrabajador.getValueAt(formtra.jttbTrabajador.getSelectedRow(), 4)));
             formtra.cbxCargo.setSelectedItem(String.valueOf(formtra.jttbTrabajador.getValueAt(formtra.jttbTrabajador.getSelectedRow(), 5)));
+            activarModElim();
         }
     }
 
@@ -297,6 +300,18 @@ public class ControladorTrabajador implements ActionListener, MouseListener, Key
     @Override
     public void keyReleased(KeyEvent e) {
 
+    }
+
+    public void desactivarModElim() {//al iniciar el Form y clic en limpiar
+        formtra.btnModificarTrabajador.setEnabled(false);
+        formtra.btnEliminarTrabajador.setEnabled(false);
+        formtra.btnAgregarTrabajador.setEnabled(true);
+    }
+
+    public void activarModElim() {//al hacer clic en la tabla
+        formtra.btnModificarTrabajador.setEnabled(true);
+        formtra.btnEliminarTrabajador.setEnabled(true);
+        formtra.btnAgregarTrabajador.setEnabled(false);
     }
 
 }

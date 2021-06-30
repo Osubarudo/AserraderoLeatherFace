@@ -50,6 +50,7 @@ public class ControladorOrdenTrabajo implements ActionListener, MouseListener {
         vista.cbxResponsableOt.setModel(dao.obtenerResponsable());
         vista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         llenarTabla();
+        desactivarModElim();
     }
 
     String[] columnas = {"ID", "Notas", "Generador", "Responsable"};
@@ -149,6 +150,7 @@ public class ControladorOrdenTrabajo implements ActionListener, MouseListener {
         vista.txtNota.setText("");
         vista.cbxGeneradoOt.setSelectedIndex(0);
         vista.cbxResponsableOt.setSelectedIndex(0);
+        desactivarModElim();
     }
 
     @Override
@@ -158,6 +160,7 @@ public class ControladorOrdenTrabajo implements ActionListener, MouseListener {
         vista.txtNota.setText(String.valueOf(vista.jtbOrdenTrabajo.getValueAt(vista.jtbOrdenTrabajo.getSelectedRow(), 1)));
         vista.cbxGeneradoOt.setSelectedItem(String.valueOf(vista.jtbOrdenTrabajo.getValueAt(vista.jtbOrdenTrabajo.getSelectedRow(), 2)));
         vista.cbxResponsableOt.setSelectedItem(String.valueOf(vista.jtbOrdenTrabajo.getValueAt(vista.jtbOrdenTrabajo.getSelectedRow(), 3)));
+        activarModElim();
 
 //        String idGen = String.valueOf(vista.jtbOrdenTrabajo.getValueAt(vista.jtbOrdenTrabajo.getSelectedRow(), 2));
 //        try {
@@ -192,6 +195,18 @@ public class ControladorOrdenTrabajo implements ActionListener, MouseListener {
     @Override
     public void mouseExited(MouseEvent me) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void desactivarModElim() {//al iniciar el Form y clic en limpiar
+        vista.btnModificarOrden.setEnabled(false);
+        vista.btnEliminarOrden.setEnabled(false);
+        vista.btnAñadirOrden.setEnabled(true);
+    }
+
+    public void activarModElim() {//al hacer clic en la tabla
+        vista.btnModificarOrden.setEnabled(true);
+        vista.btnEliminarOrden.setEnabled(true);
+        vista.btnAñadirOrden.setEnabled(false);
     }
 
 }

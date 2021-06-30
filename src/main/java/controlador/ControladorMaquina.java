@@ -47,6 +47,7 @@ public class ControladorMaquina implements ActionListener, MouseListener {
         formaq.txtIdmaq.setEnabled(false);//bloquea el campo "txtIdMaquina"
         formaq.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //dispose , permite cerrar solo la ventana seleccionada
         llenarTabla();
+        desactivarModElim();
     }
 
     String[] columnas = {"id", "Nombre", "ubicacion", "tipo"};
@@ -151,6 +152,7 @@ public class ControladorMaquina implements ActionListener, MouseListener {
         formaq.txtUbicacionMaq.setText("");
         formaq.txtTipoMaq.setText("");
         formaq.txtIdmaq.setText("");
+        desactivarModElim();
     }
 
     @Override
@@ -161,6 +163,7 @@ public class ControladorMaquina implements ActionListener, MouseListener {
             formaq.txtUbicacionMaq.setText(String.valueOf(formaq.jtbMaquina.getValueAt(formaq.jtbMaquina.getSelectedRow(), 2)));
             formaq.txtTipoMaq.setText(String.valueOf(formaq.jtbMaquina.getValueAt(formaq.jtbMaquina.getSelectedRow(), 3)));
             formaq.txtIdmaq.setText(String.valueOf(formaq.jtbMaquina.getValueAt(formaq.jtbMaquina.getSelectedRow(), 0)));
+            activarModElim();
 
         }
     }
@@ -183,6 +186,18 @@ public class ControladorMaquina implements ActionListener, MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    public void desactivarModElim() {//al iniciar el Form y clic en limpiar
+        formaq.btnModificarMaquina.setEnabled(false);
+        formaq.btnEliminarMaquina.setEnabled(false);
+        formaq.btnAgregarMaquina.setEnabled(true);
+    }
+
+    public void activarModElim() {//al hacer clic en la tabla
+        formaq.btnModificarMaquina.setEnabled(true);
+        formaq.btnEliminarMaquina.setEnabled(true);
+        formaq.btnAgregarMaquina.setEnabled(false);
     }
 
 }

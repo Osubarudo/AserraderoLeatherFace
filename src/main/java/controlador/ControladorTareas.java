@@ -64,6 +64,7 @@ public class ControladorTareas implements ActionListener, MouseListener, KeyList
         formtare.cbxTipoMantencion.setModel(daotare.obtenerTipoMantencion());
         formtare.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         llenarTabla();
+        desactivarModElim();
     }
     String[] columnas = {"ID", "Descripción", "Duración", "Prioridad", "Máquina", "Periodo", "Tipo Tarea", "OT", "Tipo Mantención"};
     ArrayList<Object[]> datos = new ArrayList<>();
@@ -208,6 +209,7 @@ public class ControladorTareas implements ActionListener, MouseListener, KeyList
         formtare.cbxTipoMantencion.setSelectedIndex(0);
         formtare.cbxTipoTarea.setSelectedIndex(0);
         formtare.cbxOrdentTabajo.setSelectedIndex(0);
+        desactivarModElim();
     }
 
     @Override
@@ -222,6 +224,7 @@ public class ControladorTareas implements ActionListener, MouseListener, KeyList
             formtare.cbxTipoTarea.setSelectedItem(String.valueOf(formtare.jtbTarea.getValueAt(formtare.jtbTarea.getSelectedRow(), 6)));
             formtare.cbxOrdentTabajo.setSelectedItem(String.valueOf(formtare.jtbTarea.getValueAt(formtare.jtbTarea.getSelectedRow(), 7)));
             formtare.cbxTipoMantencion.setSelectedItem(String.valueOf(formtare.jtbTarea.getValueAt(formtare.jtbTarea.getSelectedRow(), 8)));
+            activarModElim();
 
         }
     }
@@ -286,6 +289,18 @@ public class ControladorTareas implements ActionListener, MouseListener, KeyList
     @Override
     public void keyReleased(KeyEvent e) {
 
+    }
+
+    public void desactivarModElim() {//al iniciar el Form y clic en limpiar
+        formtare.btnModificarTarea.setEnabled(false);
+        formtare.btnEliminatTarea.setEnabled(false);
+        formtare.btnAñadirTarea.setEnabled(true);
+    }
+
+    public void activarModElim() {//al hacer clic en la tabla
+        formtare.btnModificarTarea.setEnabled(true);
+        formtare.btnEliminatTarea.setEnabled(true);
+        formtare.btnAñadirTarea.setEnabled(false);
     }
 
 }
