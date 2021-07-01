@@ -71,7 +71,12 @@ public class ControladorTareas implements ActionListener, MouseListener, KeyList
     }
     String[] columnas = {"ID", "Descripción", "Duración", "Prioridad", "Máquina", "Periodo", "Tipo Tarea", "OT", "Tipo Mantención"};
     ArrayList<Object[]> datos = new ArrayList<>();
-    DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+    DefaultTableModel modelo = new DefaultTableModel(columnas, 0){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
 
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -58,9 +58,14 @@ public class ControladorTrabajador implements ActionListener, MouseListener, Key
         desactivarModElim();
     }
 
-    String[] columnas = {"id_trabajador", "rut", "nombres", "apellido_paterno", "apellido_materno", "cargo_fk"};
+    String[] columnas = {"ID", "Rut", "Nombres", "Apellido Paterno", "Apellido Materno", "Cargo"};
     ArrayList<Object[]> datos = new ArrayList<>();
-    DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+    DefaultTableModel modelo = new DefaultTableModel(columnas, 0){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
 
     @Override
     public void actionPerformed(ActionEvent e) {

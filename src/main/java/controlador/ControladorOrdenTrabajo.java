@@ -55,7 +55,12 @@ public class ControladorOrdenTrabajo implements ActionListener, MouseListener {
 
     String[] columnas = {"ID", "Notas", "Generador", "Responsable"};
     ArrayList<Object[]> datos = new ArrayList<>();
-    DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+    DefaultTableModel modelo = new DefaultTableModel(columnas, 0){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
 
     @Override
     public void actionPerformed(ActionEvent e) {
