@@ -16,7 +16,7 @@ import vista.FormLogin;
 
 /**
  *
- * @author osval
+ * @author osvaldo matamala
  */
 public class Principal {
 
