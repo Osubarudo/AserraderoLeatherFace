@@ -256,29 +256,29 @@ public class ControladorTareas implements ActionListener, MouseListener, KeyList
 
         }
 
-        if (e.getSource() == formtare.txtDuracion) {
-            char c = e.getKeyChar();
-            if (e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_ENTER) {//Al presionar enter pasa el foco al siguiente campo
-                //txtPeso.requestFocus();//hay que definir a que componente pasa el foco
-            } else if (e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_BACKSPACE || e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_DELETE) {//lo utilizo para que no haga el sonido del beep al borrar
-                //
-            } else if (c < '0' || c > '9') {
-                formtare.getToolkit().beep();
-                e.consume();
-            }
+//        if (e.getSource() == formtare.txtDuracion) {
+//            char c = e.getKeyChar();
+//            if (e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_ENTER) {//Al presionar enter pasa el foco al siguiente campo
+//                //txtPeso.requestFocus();//hay que definir a que componente pasa el foco
+//            } else if (e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_BACKSPACE || e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_DELETE) {//lo utilizo para que no haga el sonido del beep al borrar
+//                //
+//            } else if (c < '0' || c > '9') {
+//                formtare.getToolkit().beep();
+//                e.consume();
+//            }
 
-        }
-        if (e.getSource() == formtare.txtPeriodo) {
-            char c = e.getKeyChar();
-            if (e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_ENTER) {//Al presionar enter pasa el foco al siguiente campo
-                //txtPeso.requestFocus();//hay que definir a que componente pasa el foco
-            } else if (e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_BACKSPACE || e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_DELETE) {//lo utilizo para que no haga el sonido del beep al borrar
-                //
-            } else if (c < '0' || c > '9') {
-                formtare.getToolkit().beep();
-                e.consume();
-            }
-        }
+//        }
+//        if (e.getSource() == formtare.txtPeriodo) {
+//            char c = e.getKeyChar();
+//            if (e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_ENTER) {//Al presionar enter pasa el foco al siguiente campo
+//                //txtPeso.requestFocus();//hay que definir a que componente pasa el foco
+//            } else if (e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_BACKSPACE || e.getKeyChar() == com.sun.glass.events.KeyEvent.VK_DELETE) {//lo utilizo para que no haga el sonido del beep al borrar
+//                //
+//            } else if (c < '0' || c > '9') {
+//                formtare.getToolkit().beep();
+//                e.consume();
+//            }
+//        }
     }
 
     @Override

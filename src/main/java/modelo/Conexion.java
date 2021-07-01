@@ -18,9 +18,9 @@ public class Conexion {
     private static Connection conexion;
     private static Conexion instancia;
     
-    private static final String URL = "jdbc:mysql://localhost/aserradero";
+    private static final String URL = "jdbc:mysql://localhost:3307/aserradero";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "osvaldo81";
+    private static final String PASSWORD = "vader1611";
     
     private Conexion(){};
     
